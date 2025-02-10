@@ -25,6 +25,14 @@ This Github action can be used to generate alert to OpsGenie by generating a CUR
 * USE_EU_INSTANCE
 
   Use the EU instance of OpsGenie
+
+* RESPONDES
+
+  The list of responders the alert is targeted to (comma-separated, format: id:UUID:type OR name:TeamName:type OR username:Email:type)
+
+* TAGS
+
+  The comma separated list of tags to be attached to the alert
     
 #### Example Usage
 
@@ -45,12 +53,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send OpsGenie Alert
-        uses: eonx-com/actions-opsgenie@master
+        uses: dil-zsmolnar/actions-opsgenie@master
         with:
           API_KEY: ${{ secrets.OPSGENIE_API_KEY }}
           PRIORITY: 'P5'
           ALIAS: 'deploy-production'
           MESSAGE: 'Deployment to production started'
+          TAGS: pipeline,ci
+          RESPONDERS: id:0a50a357-09c1-4ae4-9f0b-bb3e1ad6d8b5:team,username:support@acme.com:user,name:NOC:team
 
   deploy-production:
     name: Deploy (Production)
@@ -67,12 +77,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send OpsGenie Alert
-        uses: eonx-com/actions-opsgenie@master
+        uses: dil-zsmolnar/actions-opsgenie@master
         with:
           API_KEY: ${{ secrets.OPSGENIE_API_KEY }}
           PRIORITY: 'P5'
           ALIAS: 'deploy-production'
           MESSAGE: 'Deployment to production completed successfully'
+          RESPONDERS: id:0a50a357-09c1-4ae4-9f0b-bb3e1ad6d8b5:team
 
   deploy-production-failed:
     name: Failed Notification
@@ -81,10 +92,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send OpsGenie Alert
-        uses: eonx-com/actions-opsgenie@master
+        uses: dil-zsmolnar/actions-opsgenie@master
         with:
           API_KEY: ${{ secrets.OPSGENIE_API_KEY }}
           PRIORITY: 'P1'
           ALIAS: 'deploy-production-failed'
           MESSAGE: 'Deployment to production failed. please review Github Actions logs'
+          TAGS: pipeline,ci
+          RESPONDERS: id:0a50a357-09c1-4ae4-9f0b-bb3e1ad6d8b5:team,username:support@acme.com:user,name:NOC:team
 ```
