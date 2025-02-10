@@ -103,8 +103,9 @@ fi
 JSON_PAYLOAD+="}"
 
 # Send alert via curl request to OpsGenie API
-STATUS_CODE=$(curl -s \
-    -w '%{http_code}' \
+RESPONSE=$(curl -s \
+    -o /dev/null \
+    -w "\n%{http_code}" \
     -X POST "https://${HOST}/v2/alerts" \
     -H "Host: ${HOST}" \
     -H "Authorization: GenieKey ${OPSGENIE_API_KEY}" \
@@ -113,8 +114,15 @@ STATUS_CODE=$(curl -s \
     -H "Content-Type: application/json" \
     -d "${JSON_PAYLOAD}")
 
+# Extract status code (last line of the response)
+STATUS_CODE=$(echo "${RESPONSE}" | tail -n1)
+
+# Extract response body (all except last line)
+RESPONSE_BODY=$(echo "${RESPONSE}" | sed '$d')
+
 # Validate status code
 if [[ "${STATUS_CODE}" != "200" ]] && [[ "${STATUS_CODE}" != "201" ]] && [[ "${STATUS_CODE}" != "202" ]]; then
-  echo "ERROR: HTTP response code ${STATUS_CODE} received, expected HTTP 201"
+  echo "ERROR: HTTP response code ${STATUS_CODE} received, expected 200, 201, or 202"
+  echo "Response body: ${RESPONSE_BODY}"
   exit 1
 fi

@@ -19,7 +19,7 @@ inputs:
   api_key:
     description: 'OpsGenie API Key'
     required: true
-  respondes:
+  responders:
     description: 'Optional comma separated list of responders to be added. Responders have the format id:{UUID}:{type} OR name:{TeamName}:{type} OR username:Email:{type}. {type} is one of team, user, escalation, schedule - refer to Opsgenie docs'
     required: false
     default: ""
