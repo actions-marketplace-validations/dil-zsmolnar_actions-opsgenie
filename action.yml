@@ -1,6 +1,6 @@
-name: 'eonx-com/actions-opsgenie'
+name: 'dil-zsmolnar/actions-opsgenie'
 description: 'Send an alert using OpsGenie API V2'
-author: 'Damian Sloane <damian.sloane@eonx.com>'
+author: 'Zsolt Molnar <zsolt.molnar@diligent.com>'
 
 branding:
   icon: 'x'
