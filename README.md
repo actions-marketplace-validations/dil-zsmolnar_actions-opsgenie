@@ -26,7 +26,7 @@ This Github action can be used to generate alert to OpsGenie by generating a CUR
 
   Use the EU instance of OpsGenie
 
-* RESPONDES
+* RESPONDERS
 
   The list of responders the alert is targeted to (comma-separated, format: id:UUID:type OR name:TeamName:type OR username:Email:type)
 

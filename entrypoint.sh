@@ -78,6 +78,7 @@ JSON_PAYLOAD="{
     \"details\": {
         \"github_repository\": \"${GITHUB_REPOSITORY}\",
         \"github_ref\": \"${GITHUB_REF}\",
+        \"github_head_ref\": \"${GITHUB_HEAD_REF}\",
         \"github_workflow\": \"${GITHUB_WORKFLOW}\",
         \"github_action\": \"${GITHUB_ACTION}\",
         \"github_event_name\": \"${GITHUB_EVENT_NAME}\",
